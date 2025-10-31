@@ -1,9 +1,11 @@
 
-"""Week 9 coding assignment. We are implementing
+"""update this docstring. Week 9 coding assignment. We are implementing
 a SortableDigraph class which inherits from
 a VersatileDigraph class. This class adds a top_sort
 method that performs topological sorting using
 on a directed acyclic graph using Kahn's algorithm."""
+
+from collections import deque
 
 try:
     import graphviz
@@ -438,6 +440,16 @@ class SortableDigraph(VersatileDigraph):
             raise ValueError("Graph has at least one cycle; topological sort not possible")
 
         return sorted_nodes
+
+class TraversableDigraph(SortableDigraph):
+    """A traversable directed graph that
+    inherits from sortable digraph"""
+
+    def __init__(self):
+        """initializes an empty traversable
+        directed graph"""
+        super().__init__()
+        self._traversable = True
 
 if __name__ == "__main__":
     #testing the sortable digraph
