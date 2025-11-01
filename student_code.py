@@ -1,9 +1,9 @@
 
-"""update this docstring. Week 9 coding assignment. We are implementing
-a SortableDigraph class which inherits from
-a VersatileDigraph class. This class adds a top_sort
-method that performs topological sorting using
-on a directed acyclic graph using Kahn's algorithm."""
+"""Week 10 coding assignment. We are implementing
+a TraversableDigraph class which inherits from
+a SortableDigraph class and DAG which inherits from
+TraversableDigraph. This will augment SortableDigraph
+with two additional methods, BFS and DFS."""
 
 from collections import deque
 
@@ -36,6 +36,14 @@ class VersatileDigraph():
         if node in self.nodes:
             raise ValueError(f"node '{node}' already exists in the graph")
         self.nodes[node] = value
+
+    def get_nodes(self):
+        """returns a dictionary of nodes in the graph.
+        
+        Returns:
+            dict: dictionary with node names as keys and values as values
+        """
+        return self.nodes
 
     def add_edge(self, source, target, edge_name = None, edge_weight = 1):
         """adding an edge from the source to target
