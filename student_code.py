@@ -459,8 +459,8 @@ class TraversableDigraph(SortableDigraph):
         directed graph"""
         super().__init__()
 
-    def bfs(self, start):
-        """performs BFS traversal from the start node.
+    def dfs(self, start):
+        """performs DFS traversal from the start node.
 
         Args
             start: the node to start traversal from
@@ -484,6 +484,31 @@ class TraversableDigraph(SortableDigraph):
 
         yield from dfs_visit(start)
 
+    def bfs(self, start):
+        """performs BFS traversal from the start node.
+
+        Args
+            start: the node to start traversal from
+        Yields:
+            nodes in breadth first order
+        """
+        if not isinstance(start, str):
+            raise TypeError(f"start node must be a string, got {type(start).__name__}")
+        if start not in self.nodes:
+            raise KeyError(f"start node '{start}' does not exist in the graph")
+
+        visited = set([start]) #mark start as visited but do not yield
+        queue = deque(self.successors(start)) #add all of start's successors to queue
+
+        while queue:
+            current_node = queue.popleft() #get first node from front of queue
+            if current_node not in visited:
+                visited.add(current_node)
+                yield current_node
+                #add all unvisited successors to the queue
+                for successor in self.successors(current_node):
+                    if successor not in visited:
+                        queue.append(successor)
 
 
 if __name__ == "__main__":
