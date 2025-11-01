@@ -519,7 +519,7 @@ class DAG(TraversableDigraph):
             target: the target node
             edge_name: optional name for the edge
             edge_weight: optional weight for the edge
-        
+
         Raises:
             ValueError: if adding the edge would create a cycle
         """
@@ -529,7 +529,7 @@ class DAG(TraversableDigraph):
             raise KeyError(f"source node '{source}' does not exist in graph")
         if target not in self.nodes:
             raise KeyError(f"Target node '{target}' does not exist in the graph")
-        
+
         #check for cycle
         #if yes, then adding source tot arget would create a cycle
         try:
@@ -539,7 +539,7 @@ class DAG(TraversableDigraph):
         except (KeyError, TypeError):
             #if target has no successors or any error than no cycle is possible from this
             pass
-        
+
         #no cycle detected so safe to add edge
         #call the parent method
         super().add_edge(source, target, edge_name, edge_weight)
