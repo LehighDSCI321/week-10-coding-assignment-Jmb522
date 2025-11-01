@@ -5,8 +5,6 @@ a SortableDigraph class and DAG which inherits from
 TraversableDigraph. This will augment SortableDigraph
 with two additional methods, BFS and DFS."""
 
-from collections import deque
-
 try:
     import graphviz
     GRAPHVIZ_AVAILABLE = True
@@ -449,15 +447,44 @@ class SortableDigraph(VersatileDigraph):
 
         return sorted_nodes
 
+from collections import deque
+
 class TraversableDigraph(SortableDigraph):
     """A traversable directed graph that
-    inherits from sortable digraph"""
+    inherits from sortable digraph.
+    Adds a DFS and a BFS capability."""
 
     def __init__(self):
         """initializes an empty traversable
         directed graph"""
         super().__init__()
-        self._traversable = True
+
+    def bfs(self, start):
+        """performs BFS traversal from the start node.
+
+        Args
+            start: the node to start traversal from
+        Yields:
+            nodes in depth first order
+        """
+        if not isinstance(start, str):
+            raise TypeError(f"start node must be a string, got {type(start).__name__}")
+        if start not in self.nodes:
+            raise KeyError(f"start node '{start}' does not exist in the graph")
+
+        visited = set([start]) #mark start as visited but do not yield
+
+        def dfs_visit(node):
+            """Recursive helper function for DFS taversal"""
+            for successor in self.successors(node):
+                if successor not in visited:
+                    visited.add(successor)
+                    yield successor
+                    yield from dfs_visit(successor)
+
+        yield from dfs_visit(start)
+
+
 
 if __name__ == "__main__":
     #testing the sortable digraph
