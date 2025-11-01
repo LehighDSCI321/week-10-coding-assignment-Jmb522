@@ -16,6 +16,8 @@ try:
 except ImportError:
     BOKEH_AVAILABLE = False
 
+from collections import deque
+
 class VersatileDigraph():
     """A versatile and directed graph implementation"""
 
@@ -446,8 +448,6 @@ class SortableDigraph(VersatileDigraph):
             raise ValueError("Graph has at least one cycle; topological sort not possible")
 
         return sorted_nodes
-
-from collections import deque
 
 class TraversableDigraph(SortableDigraph):
     """A traversable directed graph that
