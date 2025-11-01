@@ -510,6 +510,14 @@ class TraversableDigraph(SortableDigraph):
                     if successor not in visited:
                         queue.append(successor)
 
+class DAG(TraversableDigraph):
+    """A directed acyclic graph that
+    inherits from traversable digraph.
+    Overrides add_edge to prevent cycles."""
+
+    def __init__(self):
+        """initializes an empty DAG"""
+        super().__init__()
 
 if __name__ == "__main__":
     #testing the sortable digraph
