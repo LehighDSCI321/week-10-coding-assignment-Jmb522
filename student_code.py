@@ -509,7 +509,7 @@ class DAG(TraversableDigraph):
     """A directed acyclic graph that
     inherits from traversable digraph.
     Overrides add_edge to prevent cycles."""
-    
+
     def add_edge(self, source, target, edge_name = None, edge_weight = 1):
         """adds an edge from the source to target but only if it will not
         create a cycle.
@@ -535,7 +535,7 @@ class DAG(TraversableDigraph):
         try:
             for node in self.bfs(target):
                 if node == source:
-                    raise ValueError(f"adding edge from '{source}' to '{target}' would create a cycle")
+                    raise ValueError("adding edge from would create a cycle")
         except (KeyError, TypeError):
             #if target has no successors or any error than no cycle is possible from this
             pass
