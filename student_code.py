@@ -518,6 +518,41 @@ class DAG(TraversableDigraph):
     def __init__(self):
         """initializes an empty DAG"""
         super().__init__()
+    
+    def add_edge(self, source, target, edge_name = None, edge_weight = 1):
+        """adds an edge from the source to target but only if it will not
+        create a cycle.
+
+        Args:
+            source: the source node
+            target: the target node
+            edge_name: optional name for the edge
+            edge_weight: optional weight for the edge
+        
+        Raises:
+            ValueError: if adding the edge would create a cycle
+        """
+        #check if both nodes exist
+        #we need to know before cycle detection
+        if source not in self.nodes:
+            raise KeyError(f"source node '{source}' does not exist in graph")
+        if target not in self.nodes:
+            raise KeyError(f"Target node '{target}' does not exist in the graph")
+        
+        #check for cycle
+        #if yes, then adding source tot arget would create a cycle
+        try:
+            for node in self.bfs(target):
+                if node == source:
+                    raise ValueError(f"adding edge from '{source}' to '{target}' would create a cycle")
+        except (KeyError, TypeError):
+            #if target has no successors or any error than no cycle is possible from this
+            pass
+        
+        #no cycle detected so safe to add edge
+        #call the parent method
+        super().add_edge(source, target, edge_name, edge_weight)
+
 
 if __name__ == "__main__":
     #testing the sortable digraph
