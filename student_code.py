@@ -454,11 +454,6 @@ class TraversableDigraph(SortableDigraph):
     inherits from sortable digraph.
     Adds a DFS and a BFS capability."""
 
-    def __init__(self):
-        """initializes an empty traversable
-        directed graph"""
-        super().__init__()
-
     def dfs(self, start):
         """performs DFS traversal from the start node.
 
@@ -514,10 +509,6 @@ class DAG(TraversableDigraph):
     """A directed acyclic graph that
     inherits from traversable digraph.
     Overrides add_edge to prevent cycles."""
-
-    def __init__(self):
-        """initializes an empty DAG"""
-        super().__init__()
     
     def add_edge(self, source, target, edge_name = None, edge_weight = 1):
         """adds an edge from the source to target but only if it will not
